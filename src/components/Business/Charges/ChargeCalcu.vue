@@ -90,7 +90,7 @@ export default {
 
         this.changeBkStatus(bkid);
 
-        console.log(res);
+        // console.log(res);
       } catch (error) {
         window.alert("核算失败");
       } finally {

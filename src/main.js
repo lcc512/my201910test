@@ -8,6 +8,10 @@ import ElementUI from 'element-ui';
 import Router from 'vue-router'
 import Print from 'vue-print-nb'
 
+//表格导出功能
+import JsonExcel from 'vue-json-excel'
+Vue.component('downloadExcel', JsonExcel)
+
 Vue.config.productionTip = false
 
 const originalPush = Router.prototype.push

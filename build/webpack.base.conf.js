@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -29,10 +29,11 @@ module.exports = {
       '@': resolve('src'),
     }
   },
-  externals:{
+  externals: {
     //第一个写包名：第二个写这个包全局导出的接口名
-    ElementUI:'element-ui',
-    Print:'vue-print-nb'
+    ElementUI: 'element-ui',
+    Print: 'vue-print-nb',
+    JsonExcel: 'vue-json-excel'
   },
   module: {
     rules: [

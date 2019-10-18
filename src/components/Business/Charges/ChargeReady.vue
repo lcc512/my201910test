@@ -64,12 +64,25 @@ export default {
       this.tableData = data.data.infos;
       this.loading = false;
     },
+
     async changeBkStatus(bkid) {
       try {
         this.loading = true;
+
+        const {
+          data: { workFlowId }
+        } = await axios.get(`/api/workflow/`, {
+          params: {
+            workFlowTitle: "光伏抄表"
+          }
+        });
+
+        this.WORKFLOWID = workFlowId;
+
         var res = await axios.patch(`/api/chargesInfoReady/${bkid}`, {
           bkInfo: {
-            ProcSt: "录入"
+            ProcSt: "录入",
+            WORKFLOWID: workFlowId
           }
         });
 
@@ -82,26 +95,15 @@ export default {
         this.loading = false;
       }
     },
-    handleClick(row) {
-      this.changeBkStatus(row.BkID);
-      this.insertNewBkdataInfo(row.BkID);
+    async handleClick(row) {
+      await this.changeBkStatus(row.BkID);
+      await this.insertNewBkdataInfo(row.BkID);
     },
     async insertNewBkdataInfo(bkid) {
       try {
         this.loading = true;
-
-        const {
-          data: { workFlowId }
-        } = await axios.get(`/api/workflow/`, {
-          params: {
-            workFlowTitle: "光伏抄表"
-          }
-        });
-
-        console.log(workFlowId);
-
         var res = await axios.post(`/api/insertNewBkdataInfo/${bkid}`, {
-          workFlowId: workFlowId
+          workFlowId: this.WORKFLOWID
         });
       } catch (error) {
         console.log(error);

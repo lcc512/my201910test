@@ -87,15 +87,16 @@ export default {
     },
     async changeBkStatus(bkid) {
       try {
-        this.loading = true;
-        var res = await axios.patch(`/api/chargesInfoReady/${bkid}`, {
-          bkInfo: {
-            ProcSt: "关账"
-          }
-        });
-
-        window.alert("已关账");
-        this.getTableData();
+        if (confirm("确认关账？")) {
+          this.loading = true;
+          var res = await axios.patch(`/api/chargesInfoReady/${bkid}`, {
+            bkInfo: {
+              ProcSt: "关账"
+            }
+          });
+          window.alert("已关账");
+          this.getTableData();
+        }
       } catch (error) {
         window.alert("关账失败，请查看日志");
         console.log(error);
@@ -110,13 +111,11 @@ export default {
 
     // 录入详细信息
     async handleClickLURU(row) {
-
       // 点击录入后的详细信息
       this.switchTableShow(2);
-      const {infos} = await this.getDetailTableData(row.BkID);
+      const { infos } = await this.getDetailTableData(row.BkID);
       this.bkUserList = infos;
-      console.log(infos);
-      
+      // console.log(infos);
     },
 
     // 切换table
@@ -139,7 +138,7 @@ export default {
     //获取某个抄表本下的用户信息
     async getDetailTableData(bkid) {
       const { data } = await axios.get(`/api/chargesInfoReady/${bkid}`);
-      return data
+      return data;
     }
   }
 };

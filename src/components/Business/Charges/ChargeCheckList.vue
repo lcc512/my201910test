@@ -64,6 +64,7 @@
         <el-button size="small" @click="saveChargeInfo">计算</el-button>
         <el-button size="small" type="warning" @click="submitChargeInfo">确定</el-button>
       </el-button-group>
+      
     </el-row>
   </div>
 </template>
@@ -74,6 +75,7 @@ export default {
   props: ["bkUserList"],
   data() {
     return {
+      
       // tableData: this.bkUserList,
       //   tableData: [
       //     {

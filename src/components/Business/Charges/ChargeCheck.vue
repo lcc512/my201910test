@@ -114,7 +114,7 @@ export default {
       this.switchTableShow(2);
       const {infos} = await this.getDetailTableData(row.BkID);
       this.bkUserList = infos;
-      console.log(infos);
+      // console.log(infos);
       
     },
 

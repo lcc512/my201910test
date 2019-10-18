@@ -115,7 +115,7 @@ export default {
     
 
     this.tableData = userInfo.users;
-    this.total = userInfo.totalNum;
+    this.total = userInfo.allCountNum;
     this.loading = false;
     // console.log(userInfo);
   },
@@ -147,6 +147,7 @@ export default {
       // 传递参数的时候用params，nodeexpres接收的时候 用  req.query
 
       this.tableData = userInfo.users;
+      this.total = userInfo.allCountNum;
       this.loading = false;
       // console.log(userInfo);
     },

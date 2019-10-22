@@ -1,61 +1,165 @@
 <template>
   <div>
-    <!-- <h2>Marketing customer service management system</h2> -->
-    <h2>登录页</h2>
-    <el-form ref="form" :model="form" label-width="100px">
-      <el-row type="flex" justify="center">
-        <el-col :span="8">
-          <el-form-item label="用户名">
-            <el-input v-model="form.username"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+    <form action class="login-form">
+      <h1>Marketing CSMS</h1>
 
-      <el-row type="flex" justify="center">
-        <el-col :span="8">
-          <el-form-item label="密码">
-            <el-input v-model="form.password"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <div class="txtb">
+        <input type="text" @focus="focusfns" @blur="blurfns" v-model="formData.username" />
+        <span data-placeholder="Username"></span>
+      </div>
+      <div class="txtb">
+        <input type="password" @focus="focusfns" @blur="blurfns" v-model="formData.password" />
+        <span data-placeholder="Password"></span>
+      </div>
 
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">登录</el-button>
-        <el-button @click="onClearInput">清空</el-button>
-        <el-button type="primary" @click="onRegister">注册</el-button>
-      </el-form-item>
-    </el-form>
+      <input type="button" class="logbtn" value="Login" @click="onSubmit" />
+
+      <div class="bottom-text">
+        Don't have account?
+        <a href="#/register">Sign up</a>
+      </div>
+    </form>
   </div>
 </template>
+
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
-      form: {
+      formData: {
         username: "",
         password: ""
       }
     };
   },
+  
   methods: {
-    onSubmit() {
-      if(this.form.username==='test'&&this.form.password==='1'){
-          alert('登录成功')
-          this.$router.push('./')
-      }else{
-          alert('用户名或密码错误')
+    focusfns(e) {
+      e.srcElement.classList.add("focus");
+    },
+    blurfns(e) {
+      if (e.srcElement.value === "") {
+        e.srcElement.classList.remove("focus");
       }
     },
-    onClearInput(){
-        this.form.username=''
-        this.form.password=''
+    async onSubmit() {
+      try {
+        const formData = this.formData;
+        const res = await axios.post("/api/session", formData);
+        alert("登录成功");
+
+        this.$store.commit('SET_USER',res.data) 
+
+        this.$router.back();
+      } catch (err) {
+        // dir 获取错误对象，里面response属性包含错误码401,500等
+        // 等，和自己写的接口错误信息
+        const { status } = err.response;
+        switch (status) {
+          case 404:
+            window.alert("用户名或密码错误");
+            break;
+        }
+      }
     },
-    onRegister(){
-        this.$router.push('/register')
+    onClearInput() {
+      this.form.username = "";
+      this.form.password = "";
+    },
+    onRegister() {
+      this.$router.push("/register");
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.login-form {
+  width: 360px;
+  height: 580px;
+  background-color: #f1f1f1;
+  padding: 80px 40px;
+  border-radius: 10px;
+
+  box-shadow: 5px 5px 10px #ccc;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-form h1 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.txtb {
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+  position: relative;
+}
+
+.txtb input {
+  width: 100%;
+  color: #333;
+  border: none;
+  outline: none;
+  height: 40px;
+  background: none;
+  padding: 0 5px;
+}
+
+.txtb span::before {
+  content: attr(data-placeholder);
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color: #adadad;
+  z-index: -1;
+  transition: 0.5s;
+}
+
+.txtb span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(120deg, #3498db, #8e44ad);
+  transition: 0.5s;
+}
+
+.focus + span::before {
+  top: -5px;
+}
+
+.focus + span::after {
+  width: 100%;
+}
+
+.logbtn {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: linear-gradient(120deg, #3498db, #8e44ad, #3498db);
+  background-size: 200%;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.logbtn:hover {
+  background-position: right;
+}
+
+.bottom-text {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 13px;
+}
 </style>

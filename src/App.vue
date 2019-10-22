@@ -2,21 +2,30 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
 
-    <h2 class="main-title">
-      <i class="el-icon-help"></i>
-      Marketing CSMS
-    </h2>
+    
+    <transition name="fade">
     <router-view />
+    </transition>
   </div>
 </template>
 
 <script>
+
+
+
 export default {
   name: "App"
 };
 </script>
 
 <style>
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -45,12 +54,7 @@ h3 {
   font-size: 16px;
 }
 
-.main-title {
-  font-size: 26px;
-  font-style: italic;
-  /* color: #409eff; */
-  color: #545c64;
-}
+
 
 .el-header {
   padding: 0;
@@ -62,5 +66,20 @@ h3 {
 
 table td {
   padding-left: 10px;
+}
+
+
+/* 路由跳转时动画 */
+.fade-enter-active, .fade-leave-avtive {
+    transition: opacity 1s
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0
+}
+
+
+/* 各模块首页图片 */
+.imgContent img{
+ height: 600px;
 }
 </style>

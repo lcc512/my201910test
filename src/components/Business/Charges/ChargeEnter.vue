@@ -6,7 +6,7 @@
         :data="tableData"
         border
         :header-cell-style="{background:'#CCCCCC',color:'#000'}"
-        style="width: 80%;"
+        style="width: 830px;"
         max-height="490px"
         v-loading="loading"
         highlight-current-row

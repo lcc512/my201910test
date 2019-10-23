@@ -5,7 +5,7 @@
       :data="tableData"
       border
       :header-cell-style="{background:'#CCCCCC',color:'#000'}"
-      style="width: 80%;"
+      style="width: 830px; text-align: center;"
       max-height="490px"
       v-loading="loading"
       highlight-current-row
@@ -17,7 +17,7 @@
       <el-table-column show-overflow-tooltip prop="ProcNum" label="抄表机" width="80"></el-table-column>
       <el-table-column show-overflow-tooltip prop label="最后抄表日期" width="110"></el-table-column>
       <el-table-column show-overflow-tooltip prop="ProcMo" label="算费期" width="80"></el-table-column>
-      <el-table-column fixed="right" label="核算" width="50">
+      <el-table-column fixed="right" label="核算" width="100">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)" type="text" size="small">
             <i class="el-icon-help"></i>
@@ -107,4 +107,5 @@ export default {
 </script>
 
 <style>
+
 </style>

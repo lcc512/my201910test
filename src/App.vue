@@ -82,4 +82,9 @@ table td {
 .imgContent img{
  height: 600px;
 }
+
+/* etable标题列文件居中 */
+.el-table th>.cell{
+  text-align: center;
+}
 </style>

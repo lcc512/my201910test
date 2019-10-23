@@ -15,7 +15,8 @@ const store = new Vuex.Store({
 
     },
 
-    // 通过mutaions里面的方法来访问处理state，一般用来实现关于数据的简单实现逻辑
+    // 通过mutations里面的方法来访问处理state，一般用来实现关于数据的简单实现逻辑
+    // mutations只能用同步方法，不能使用异步方法，（actions可以）
     mutations: {
 
         increment(state) {
@@ -41,6 +42,7 @@ const store = new Vuex.Store({
     },
 
     // 如果是复杂的数据处理，一般在这里面写，不直接写在mutations里
+    // 另外，这里可以用异步方法
     actions: {
 
         async myIncrease(context) {
